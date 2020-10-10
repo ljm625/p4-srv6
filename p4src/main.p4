@@ -179,6 +179,9 @@ control IngressPipeImpl (inout parsed_headers_t hdr,
         hdr.srv6_list[0].setInvalid();
         hdr.srv6h.setInvalid();
         hdr.ipv6.setInvalid();
+	// Fix ethernet type
+	hdr.ethernet.ether_type = ETHERTYPE_IPV4;
+
     } 
 
     direct_counter(CounterType.packets_and_bytes) my_sid_table_counter;
@@ -299,6 +302,8 @@ control IngressPipeImpl (inout parsed_headers_t hdr,
         hdr.ipv6.hop_limit = hdr.ipv4.ttl;
         hdr.ipv6.src_addr = src_addr;
         hdr.ipv6.dst_addr = s1;
+	// Fix ethernet type
+	hdr.ethernet.ether_type = ETHERTYPE_IPV6;
     }
 
     action usid_encap_2_v4(ipv6_addr_t src_addr, ipv6_addr_t s1, ipv6_addr_t s2) {
@@ -334,6 +339,9 @@ control IngressPipeImpl (inout parsed_headers_t hdr,
 
         hdr.srv6_list[0].setValid();
         hdr.srv6_list[0].segment_id = s2;
+        // Fix ethernet type
+	hdr.ethernet.ether_type = ETHERTYPE_IPV6;
+
     }
 
     direct_counter(CounterType.packets_and_bytes) srv6_encap_v4_table_counter;
