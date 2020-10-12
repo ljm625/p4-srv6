@@ -416,9 +416,7 @@ control IngressPipeImpl (inout parsed_headers_t hdr,
                         hdr.ipv6.dst_addr = hdr.srv6_list[0].segment_id;
                     }
                 }
-                end_action_DX4: {
-                    routing_v4.apply();
-                }
+   
             }
 	    
 
