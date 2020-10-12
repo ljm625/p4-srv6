@@ -179,6 +179,7 @@ control IngressPipeImpl (inout parsed_headers_t hdr,
         hdr.srv6_list[0].setInvalid();
         hdr.srv6h.setInvalid();
         hdr.ipv6.setInvalid();
+	hdr.ipv6_inner.setInvalid();
 	// Fix ethernet type
 	hdr.ethernet.ether_type = ETHERTYPE_IPV4;
 
