@@ -180,6 +180,7 @@ control IngressPipeImpl (inout parsed_headers_t hdr,
         hdr.srv6h.setInvalid();
         hdr.ipv6.setInvalid();
 	// Fix ethernet type
+	hdr.ipv6.setValid();
 	hdr.ethernet.ether_type = ETHERTYPE_IPV4;
 
     } 
@@ -426,10 +427,9 @@ control IngressPipeImpl (inout parsed_headers_t hdr,
             } else {
                 srv6_encap.apply();
             }
-	    if (hdr.ipv4.isValid() && !hdr.ipv6.isValid()) {
-	        // IPv4 Routing
-	    	routing_v4.apply();
-	    }
+	    // IPv4 Routing
+	    routing_v4.apply();
+	    
 
             
             if (!local_metadata.xconnect) {
