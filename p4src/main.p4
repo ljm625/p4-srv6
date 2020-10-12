@@ -420,6 +420,7 @@ control IngressPipeImpl (inout parsed_headers_t hdr,
                     routing_v4.apply();
                 }
             }
+	    
 
             // SRv6 Encapsulation
             if (hdr.ipv4.isValid() && !hdr.ipv6.isValid()) {
@@ -427,6 +428,11 @@ control IngressPipeImpl (inout parsed_headers_t hdr,
             } else {
                 srv6_encap.apply();
             }
+	    if (hdr.ipv4.isValid() && !hdr.ipv6.isValid()) {
+	        // IPv4 Routing
+	    	routing_v4.apply();
+	    }
+
             
             if (!local_metadata.xconnect) {
 	            routing_v6.apply();
